@@ -14,10 +14,10 @@ EQ            = =
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_QML_LIB -DQT_QMLINTEGRATION_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -Wextra -fPIC -D_REENTRANT $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++1z -Wall -Wextra -fPIC -D_REENTRANT $(DEFINES)
-INCPATH       = -I../../../CalculatriceV3 -I. -I/opt/Qt/6.9.1/gcc_64/include -I/opt/Qt/6.9.1/gcc_64/include/QtWidgets -I/opt/Qt/6.9.1/gcc_64/include/QtGui -I/opt/Qt/6.9.1/gcc_64/include/QtCore -I. -I. -I/opt/Qt/6.9.1/gcc_64/mkspecs/linux-g++
+INCPATH       = -I../../../CalculatriceV3 -I. -I/opt/Qt/6.9.1/gcc_64/include -I/opt/Qt/6.9.1/gcc_64/include/QtWidgets -I/opt/Qt/6.9.1/gcc_64/include/QtGui -I/opt/Qt/6.9.1/gcc_64/include/QtQml -I/opt/Qt/6.9.1/gcc_64/include/QtQmlIntegration -I/opt/Qt/6.9.1/gcc_64/include/QtNetwork -I/opt/Qt/6.9.1/gcc_64/include/QtCore -I. -I. -I/opt/Qt/6.9.1/gcc_64/mkspecs/linux-g++
 QMAKE         = /opt/Qt/6.9.1/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = CalculatriceV31.0.0
 DISTDIR = /home/USERS/ELEVES/CIEL2024/chubert/Documents/2eme_annee/qt_ihm/CalculatriceV3/build/Desktop_Qt_6_9_1-Debug/.tmp/CalculatriceV31.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/opt/Qt/6.9.1/gcc_64/lib -Wl,-rpath-link,/opt/Qt/6.9.1/gcc_64/lib
-LIBS          = $(SUBLIBS) /opt/Qt/6.9.1/gcc_64/lib/libQt6Widgets.so /opt/Qt/6.9.1/gcc_64/lib/libQt6Gui.so /opt/Qt/6.9.1/gcc_64/lib/libQt6Core.so -lpthread -lGL   
+LIBS          = $(SUBLIBS) /opt/Qt/6.9.1/gcc_64/lib/libQt6Widgets.so /opt/Qt/6.9.1/gcc_64/lib/libQt6Gui.so /opt/Qt/6.9.1/gcc_64/lib/libQt6Qml.so -pthread /opt/Qt/6.9.1/gcc_64/lib/libQt6Network.so /opt/Qt/6.9.1/gcc_64/lib/libQt6Core.so -lpthread -lGL   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -346,6 +346,7 @@ DIST          = /opt/Qt/6.9.1/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt/6.9.1/gcc_64/mkspecs/features/qt_config.prf \
 		/opt/Qt/6.9.1/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/opt/Qt/6.9.1/gcc_64/mkspecs/features/spec_post.prf \
+		../../.qmake.stash \
 		/opt/Qt/6.9.1/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/opt/Qt/6.9.1/gcc_64/mkspecs/features/toolchain.prf \
 		/opt/Qt/6.9.1/gcc_64/mkspecs/features/default_pre.prf \
@@ -669,6 +670,7 @@ Makefile: ../../CalculatriceV3.pro /opt/Qt/6.9.1/gcc_64/mkspecs/linux-g++/qmake.
 		/opt/Qt/6.9.1/gcc_64/mkspecs/features/qt_config.prf \
 		/opt/Qt/6.9.1/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/opt/Qt/6.9.1/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/opt/Qt/6.9.1/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/opt/Qt/6.9.1/gcc_64/mkspecs/features/toolchain.prf \
 		/opt/Qt/6.9.1/gcc_64/mkspecs/features/default_pre.prf \
@@ -693,6 +695,8 @@ Makefile: ../../CalculatriceV3.pro /opt/Qt/6.9.1/gcc_64/mkspecs/linux-g++/qmake.
 		../../CalculatriceV3.pro \
 		/opt/Qt/6.9.1/gcc_64/lib/libQt6Widgets.prl \
 		/opt/Qt/6.9.1/gcc_64/lib/libQt6Gui.prl \
+		/opt/Qt/6.9.1/gcc_64/lib/libQt6Qml.prl \
+		/opt/Qt/6.9.1/gcc_64/lib/libQt6Network.prl \
 		/opt/Qt/6.9.1/gcc_64/lib/libQt6Core.prl
 	$(QMAKE) -o Makefile ../../CalculatriceV3.pro -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
 /opt/Qt/6.9.1/gcc_64/mkspecs/features/spec_pre.prf:
@@ -984,6 +988,7 @@ Makefile: ../../CalculatriceV3.pro /opt/Qt/6.9.1/gcc_64/mkspecs/linux-g++/qmake.
 /opt/Qt/6.9.1/gcc_64/mkspecs/features/qt_config.prf:
 /opt/Qt/6.9.1/gcc_64/mkspecs/linux-g++/qmake.conf:
 /opt/Qt/6.9.1/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /opt/Qt/6.9.1/gcc_64/mkspecs/features/exclusive_builds.prf:
 /opt/Qt/6.9.1/gcc_64/mkspecs/features/toolchain.prf:
 /opt/Qt/6.9.1/gcc_64/mkspecs/features/default_pre.prf:
@@ -1008,6 +1013,8 @@ Makefile: ../../CalculatriceV3.pro /opt/Qt/6.9.1/gcc_64/mkspecs/linux-g++/qmake.
 ../../CalculatriceV3.pro:
 /opt/Qt/6.9.1/gcc_64/lib/libQt6Widgets.prl:
 /opt/Qt/6.9.1/gcc_64/lib/libQt6Gui.prl:
+/opt/Qt/6.9.1/gcc_64/lib/libQt6Qml.prl:
+/opt/Qt/6.9.1/gcc_64/lib/libQt6Network.prl:
 /opt/Qt/6.9.1/gcc_64/lib/libQt6Core.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ../../CalculatriceV3.pro -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
@@ -1258,9 +1265,25 @@ moc_calculatricev3.cpp: ../../calculatricev3.h \
 		/opt/Qt/6.9.1/gcc_64/include/QtGui/qinputmethod.h \
 		/opt/Qt/6.9.1/gcc_64/include/QtCore/qlocale.h \
 		/opt/Qt/6.9.1/gcc_64/include/QtGui/qguiapplication_platform.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/QGridLayout \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qgridlayout.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qlayout.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qboxlayout.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/QPushButton \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/QLineEdit \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qlineedit.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qframe.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtGui/qtextcursor.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtGui/qtextdocument.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtGui/qtextformat.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtGui/qpen.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtGui/qtextoption.h \
 		moc_predefs.h \
 		/opt/Qt/6.9.1/gcc_64/libexec/moc
-	/opt/Qt/6.9.1/gcc_64/libexec/moc $(DEFINES) --include /home/USERS/ELEVES/CIEL2024/chubert/Documents/2eme_annee/qt_ihm/CalculatriceV3/build/Desktop_Qt_6_9_1-Debug/moc_predefs.h -I/opt/Qt/6.9.1/gcc_64/mkspecs/linux-g++ -I/home/USERS/ELEVES/CIEL2024/chubert/Documents/2eme_annee/qt_ihm/CalculatriceV3 -I/opt/Qt/6.9.1/gcc_64/include -I/opt/Qt/6.9.1/gcc_64/include/QtWidgets -I/opt/Qt/6.9.1/gcc_64/include/QtGui -I/opt/Qt/6.9.1/gcc_64/include/QtCore -I. -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/x86_64-linux-gnu/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../calculatricev3.h -o moc_calculatricev3.cpp
+	/opt/Qt/6.9.1/gcc_64/libexec/moc $(DEFINES) --include /home/USERS/ELEVES/CIEL2024/chubert/Documents/2eme_annee/qt_ihm/CalculatriceV3/build/Desktop_Qt_6_9_1-Debug/moc_predefs.h -I/opt/Qt/6.9.1/gcc_64/mkspecs/linux-g++ -I/home/USERS/ELEVES/CIEL2024/chubert/Documents/2eme_annee/qt_ihm/CalculatriceV3 -I/opt/Qt/6.9.1/gcc_64/include -I/opt/Qt/6.9.1/gcc_64/include/QtWidgets -I/opt/Qt/6.9.1/gcc_64/include/QtGui -I/opt/Qt/6.9.1/gcc_64/include/QtQml -I/opt/Qt/6.9.1/gcc_64/include/QtQmlIntegration -I/opt/Qt/6.9.1/gcc_64/include/QtNetwork -I/opt/Qt/6.9.1/gcc_64/include/QtCore -I. -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/x86_64-linux-gnu/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../calculatricev3.h -o moc_calculatricev3.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1480,6 +1503,22 @@ main.o: ../../main.cpp ../../calculatricev3.h \
 		/opt/Qt/6.9.1/gcc_64/include/QtGui/qinputmethod.h \
 		/opt/Qt/6.9.1/gcc_64/include/QtCore/qlocale.h \
 		/opt/Qt/6.9.1/gcc_64/include/QtGui/qguiapplication_platform.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/QGridLayout \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qgridlayout.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qlayout.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qboxlayout.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/QPushButton \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/QLineEdit \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qlineedit.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qframe.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtGui/qtextcursor.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtGui/qtextdocument.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtGui/qtextformat.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtGui/qpen.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtGui/qtextoption.h \
 		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/QApplication \
 		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../main.cpp
@@ -1681,7 +1720,41 @@ calculatricev3.o: ../../calculatricev3.cpp ../../calculatricev3.h \
 		/opt/Qt/6.9.1/gcc_64/include/QtGui/qinputmethod.h \
 		/opt/Qt/6.9.1/gcc_64/include/QtCore/qlocale.h \
 		/opt/Qt/6.9.1/gcc_64/include/QtGui/qguiapplication_platform.h \
-		ui_calculatricev3.h
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/QGridLayout \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qgridlayout.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qlayout.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qboxlayout.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/QPushButton \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/QLineEdit \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qlineedit.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qframe.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtGui/qtextcursor.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtGui/qtextdocument.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtGui/qtextformat.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtGui/qpen.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtGui/qtextoption.h \
+		ui_calculatricev3.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtCore/QVariant \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/QApplication \
+		/opt/Qt/6.9.1/gcc_64/include/QtWidgets/qapplication.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtQml/qjsengine.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtCore/qtimezone.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtCore/qdatetime.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtCore/qcalendar.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtQml/qjsvalue.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtQml/qtqmlglobal.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtQml/qtqml-config.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtNetwork/qtnetworkexports.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtQml/qtqmlexports.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtQml/qjsmanagedvalue.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtQml/qjsprimitivevalue.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtQml/qjsnumbercoercion.h \
+		/opt/Qt/6.9.1/gcc_64/include/QtQml/qqmldebug.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o calculatricev3.o ../../calculatricev3.cpp
 
 moc_calculatricev3.o: moc_calculatricev3.cpp 

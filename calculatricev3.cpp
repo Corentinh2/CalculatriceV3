@@ -1,5 +1,6 @@
 #include "calculatricev3.h"
 #include "ui_calculatricev3.h"
+#include <qjsengine.h>
 
 CalculatriceV3::CalculatriceV3(QWidget *parent)
     : QWidget(parent)
@@ -47,5 +48,24 @@ void CalculatriceV3::onQPushButtonClicked()
 {
     QPushButton *touche;
     touche=qobject_cast<QPushButton*>(sender());
-    ui->lineEditAfficheur->setText(ui->lineEditAfficheur->text()+touche->text());
+
+    if(touche){
+        QString texte = touche->text();
+
+        if(texte == "C"){
+            afficheur->clear();
+        }
+        else{
+            if (texte == "="){
+                QString expression = afficheur->text();
+                QJSEngine myEngine;
+                QJSValue resultat = myEngine.evaluate(expression);
+                afficheur->setText(resultat.toString());
+            }
+
+            else{
+                afficheur->setText(afficheur->text()+texte);
+            }
+        }
+    }
 }
